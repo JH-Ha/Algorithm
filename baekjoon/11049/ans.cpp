@@ -26,7 +26,7 @@ int main()
             dp[i][i + k] = INT64_MAX;
             for (int j = 0; j < k; j++)
             {
-                dp[i][i + k] = min(dp[i][i + k - 1 - j] + dp[i + k - j][i + k] + a[i].first * a[i + k - j].first * a[i + k].second,
+                dp[i][i + k] = min(dp[i][i + j] + dp[i + j + 1][i + k] + a[i].first * a[i + j + 1].first * a[i + k].second,
                                    dp[i][i + k]);
             }
         }
