@@ -5,35 +5,39 @@ using namespace std;
 int maxWidth = 2;
 int N, r, c;
 
-int map[17000][17000];
+int answer = 0;
 
-void createMap(int width)
+void find(int width, int is, int js)
 {
-    if (width >= maxWidth)
+    if (width == 0)
+    {
         return;
-
-    for (int i = 0; i < width; i++)
+    }
+    if (is <= r && r < is + width)
     {
-        for (int j = width; j < width * 2; j++)
+        if (js <= c && c < js + width)
         {
-            map[i][j] = map[i][j - width] + width * width;
+            find(width / 2, is, js);
+        }
+        else
+        {
+            answer += width * width;
+            find(width / 2, is, js + width);
         }
     }
-    for (int i = width; i < 2 * width; i++)
+    else
     {
-        for (int j = 0; j < width; j++)
+        if (js <= c && c < js + width)
         {
-            map[i][j] = map[i - width][j] + width * width * 2;
+            answer += width * width * 2;
+            find(width / 2, is + width, js);
+        }
+        else
+        {
+            answer += width * width * 3;
+            find(width / 2, is + width, js + width);
         }
     }
-    for (int i = width; i < 2 * width; i++)
-    {
-        for (int j = width; j < 2 * width; j++)
-        {
-            map[i][j] = map[i - width][j - width] + width * width * 3;
-        }
-    }
-    createMap(width * 2);
 }
 
 int main()
@@ -45,8 +49,7 @@ int main()
     {
         maxWidth *= 2;
     }
-    map[0][0] = 0;
-    createMap(1);
-    cout << map[r][c] << '\n';
+    find(maxWidth / 2, 0, 0);
+    cout << answer << '\n';
     return 0;
 }
