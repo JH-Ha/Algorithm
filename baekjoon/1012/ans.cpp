@@ -48,15 +48,6 @@ int main()
         {
             for (int j = 0; j < m; j++)
             {
-                // cout << "--- " << i << " --- " << j << endl;
-                // for (int x = 0; x < n; x++)
-                // {
-                //     for (int y = 0; y < m; y++)
-                //     {
-                //         cout << visited[x][y] << " ";
-                //     }
-                //     cout << endl;
-                // }
                 if (hatake[i][j] == 1 && visited[i][j] == false)
                 {
                     answer++;
@@ -67,8 +58,7 @@ int main()
                     {
                         pair<int, int> p = q.front();
                         q.pop();
-                        //cout << "x : " << p.first << " y : " << p.second << endl;
-                        //visited[p.first][p.second] = true;
+
                         for (int k = 0; k < 4; k++)
                         {
                             if (isSafe(p.first + dx[k], p.second + dy[k]) && hatake[p.first + dx[k]][p.second + dy[k]] == 1 && visited[p.first + dx[k]][p.second + dy[k]] == false)
