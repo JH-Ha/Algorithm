@@ -7,7 +7,7 @@ int main()
     int n;
     cin >> n;
     int min = 1000010;
-    int max = -1;
+    int max = -1000010;
     for (int i = 0; i < n; i++)
     {
         int input;
