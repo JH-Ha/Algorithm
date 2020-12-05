@@ -9,3 +9,4 @@ Programmers Level 3 문제들의 Java 풀이입니다.
 3. 네트워크 : Network (2020.12.05) - dfs
 4. 정수 삼각형 : IntegerTriangle (2020.12.05) - dp
 5. 섬 연결하기 : ConnectIsland (2020.12.05) - union and find
+6. 가장 먼 노드 : FarNode (2020.12.05) - bfs
