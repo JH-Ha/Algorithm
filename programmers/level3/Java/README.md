@@ -12,3 +12,4 @@ Programmers Level 3 문제들의 Java 풀이입니다.
 6. 가장 먼 노드 : FarNode (2020.12.05) - bfs
 7. 단속 카메라 : SpeedingCamera (2020.12.06) - greedy
 8. 이중 우선순위 큐 : DoublePriorityQueue (2020.12.06) - priorityQueue
+9. 입국 심사 : Binary Search (2020.12.06) - binary search
