@@ -41,6 +41,16 @@ public class Day14 {
         return (long) (((long) num) * Math.pow(2.0, numX));
     }
 
+    private static void setMem(Map<String, Long> memP2, String address, Integer num) {
+        int xIdx = address.indexOf("X");
+        if (xIdx == -1) {
+            memP2.put(address, (long) num);
+        } else {
+            setMem(memP2, address.substring(0, xIdx) + '0' + address.substring(xIdx + 1), num);
+            setMem(memP2, address.substring(0, xIdx) + '1' + address.substring(xIdx + 1), num);
+        }
+    }
+
     public static void main(String[] args) {
         File file = new File("/home/hjh/Algorithm/AdventOfCode2020/Java/src/p14Input.txt");
         try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr);) {
@@ -52,6 +62,7 @@ public class Day14 {
             String[] mem2 = new String[65536];
             List<String> addressList = new ArrayList<>();
             List<Integer> numList = new ArrayList<>();
+
             for (int i = 0; i < 65536; i++) {
                 mem[i] = 0L;
             }
@@ -91,7 +102,7 @@ public class Day14 {
                     }
                     numList.add(num);
                     addressList.add(newNumBuilder.toString());
-                    // setMem(memP2, newNumBuilder.toString(), num);
+                    setMem(memP2, newNumBuilder.toString(), num);
                     mem[address] = newNum;
                     System.out.println(newNum);
                     System.out.println(baseTwo);
@@ -103,23 +114,30 @@ public class Day14 {
             for (int i = 0; i < 65536; i++) {
                 ans += mem[i];
             }
-            for (int i = addressList.size() - 1; i >= 0; i--) {
-                String address = addressList.get(i);
-                for (int j = i + 1; j < addressList.size(); j++) {
-                    String address2 = addressList.get(j);
-                    for (int k = 0; k < 36; k++) {
-                        if (address.charAt(k) == 'X' && address2.charAt(k) != 'X') {
-                            address = address.substring(0, k) + address2.charAt(k) + address.substring(k + 1);
-                        }
-                    }
-                }
-                int numX = 0;
-                for (int j = 0; j < 36; j++) {
-                    if (address.charAt(j) == 'X') {
-                        numX++;
-                    }
-                }
-                ansP2 += Math.pow(2.0, numX) * (long) numList.get(i);
+            // for (int i = addressList.size() - 1; i >= 0; i--) {
+            // String address = addressList.get(i);
+            // for (int j = i + 1; j < addressList.size(); j++) {
+            // String address2 = addressList.get(j);
+            // for (int k = 0; k < 36; k++) {
+
+            // if (address.charAt(k) == 'X' && address2.charAt(k) != 'X') {
+            // address = address.substring(0, k) + address2.charAt(k) + address.substring(k
+            // + 1);
+            // }
+            // }
+            // }
+            // // int numX = 0;
+            // // for (int j = 0; j < 36; j++) {
+            // // if (address.charAt(j) == 'X') {
+            // // numX++;
+            // // }
+            // // }
+            // // ansP2 += Math.pow(2.0, numX) * (long) numList.get(i);
+
+            // }
+            for (String key : memP2.keySet()) {
+                long memNum = memP2.get(key);
+                ansP2 += memNum;
             }
             System.out.println("ans : " + ans);
             System.out.println("ansP2 : " + ansP2);
