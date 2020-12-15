@@ -45,24 +45,28 @@ public class Day13 {
             }
             System.out.println("busId : " + busId + " endTime : " + endTime);
             System.out.println((endTime - startTime) * busId);
-            Long earliest = 1L;
+            Long multiAll = 1L;
             for (int i = 0; i < timeList.size(); i++) {
-                earliest *= timeList.get(i);
+                multiAll *= timeList.get(i);
             }
-            // for (Long i = (long) maxNum - maxNumIdx;; i += (maxNum)) {
-            // boolean isMatch = true;
-            // for (int j = 0; j < timeList.size(); j++) {
-            // earliest = i;
-            // if (((i + timeDiff.get(j)) % timeList.get(j)) != 0) {
-            // isMatch = false;
-            // break;
-            // }
-            // }
-            // if (isMatch) {
-            // break;
-            // }
-            // }
-            System.out.println("earliest time : " + earliest);
+            Long remainder = 0L;
+            for (int i = 0; i < timeList.size(); i++) {
+                long remain = -timeDiff.get(i);
+                while (remain < 0) {
+                    remain += timeList.get(i);
+                }
+                long multi = multiAll / timeList.get(i) * (remain) % multiAll;
+                for (int j = 0; j < timeList.get(i); j++) {
+                    if ((multiAll / timeList.get(i) * j) % timeList.get(i) == 1) {
+                        remainder += (multi * j) % multiAll;
+                        break;
+                    }
+                }
+            }
+            remainder %= multiAll;
+
+            System.out.println(remainder % multiAll);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
