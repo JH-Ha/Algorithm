@@ -1,0 +1,83 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
+public class Day17 {
+    public static void main(String[] args) {
+        File file = new File("/home/hjh/Algorithm/AdventOfCode2020/Java/src/p17Input.txt");
+        try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr);) {
+            String line = null;
+            int[][][] map = new int[30][30][30];
+            int[][][] mapAfter = new int[30][30][30];
+
+            for (int i = 0; i < 30; i++) {
+                for (int j = 0; j < 30; j++) {
+                    for (int k = 0; k < 30; k++) {
+                        map[i][j][k] = 0;
+                    }
+                }
+            }
+            int row = 10;
+            while ((line = br.readLine()) != null) {
+                for (int i = 0; i < line.length(); i++) {
+                    if (line.charAt(i) == '#') {
+                        map[row][10 + i][15] = 1;
+                    }
+                }
+                row++;
+            }
+            System.out.println("test");
+
+            for (int t = 0; t < 6; t++) {
+                for (int i = 1; i < 29; i++) {
+                    for (int j = 1; j < 29; j++) {
+                        for (int k = 1; k < 29; k++) {
+                            int cnt = 0;
+                            for (int x = i - 1; x <= i + 1; x++) {
+                                for (int y = j - 1; y <= j + 1; y++) {
+                                    for (int z = k - 1; z <= k + 1; z++) {
+                                        if (x != i || y != j || z != k) {
+                                            if (map[x][y][z] == 1) {
+                                                cnt++;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if (map[i][j][k] == 0 && cnt == 3) {
+                                mapAfter[i][j][k] = 1;
+                            } else {
+                                mapAfter[i][j][k] = 0;
+                            }
+                            if (map[i][j][k] == 1 && (cnt == 2 || cnt == 3)) {
+                                mapAfter[i][j][k] = 1;
+                            } else {
+                                mapAfter[i][j][k] = 0;
+                            }
+                        }
+                    }
+                }
+                for (int i = 0; i < 30; i++) {
+                    for (int j = 0; j < 30; j++) {
+                        for (int k = 0; k < 30; k++) {
+                            map[i][j][k] = mapAfter[i][j][k];
+                        }
+                    }
+                }
+            }
+            int cnt = 0;
+            for (int i = 0; i < 30; i++) {
+                for (int j = 0; j < 30; j++) {
+                    for (int k = 0; k < 30; k++) {
+                        if (map[i][j][k] == 1) {
+                            cnt++;
+                        }
+                    }
+                }
+            }
+            System.out.println("ans : " + cnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
