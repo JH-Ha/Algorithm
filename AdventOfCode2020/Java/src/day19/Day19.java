@@ -54,7 +54,7 @@ public class Day19 {
         for (int i = 0; i < 50; i++) {
             System.out.print(numCount[i] + " ");
 
-            if (numCount[i] > 100) {
+            if (numCount[i] > 1000) {
                 List<String> list = new ArrayList<>();
                 list.add("");
                 return list;
@@ -139,8 +139,8 @@ public class Day19 {
             Node node = nodeMap.get("0");
             // List<String> resultList = makeValidString(node, nodeMap);
 
-            String[] rule8 = { "42", "42 42", "42 42 42" };
-            String[] rule11 = { "42 31", "42 42 31 31", "42 42 42 31 31 31" };
+            String[] rule8 = { "42", "42 42" };
+            String[] rule11 = { "42 31", "42 42 31 31" };
             nodeMap.put("8", new InternalNode(rule8, "8"));
             nodeMap.put("11", new InternalNode(rule11, "11"));
             List<String> resultListP2 = makeValidString(node, nodeMap);
