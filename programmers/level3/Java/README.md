@@ -15,3 +15,4 @@ Programmers Level 3 문제들의 Java 풀이입니다.
 9. 입국 심사 : Binary Search (2020.12.06) - binary search
 10. 단어 변환 : Transform Word (2020.12.21) - breadth-first search
 11. 순위 : Rank (2020.12.23) - breadth-first search
+12. 디스크 컨트롤러 : Disk Controller (2020.12.25) - Priority Queue
