@@ -1,4 +1,4 @@
-package Java.src.stealing;
+package stealing;
 
 class Solution {
     public int solution(int[] money) {
