@@ -16,6 +16,16 @@ class Edge {
     }
 }
 
+class Input {
+    int t;
+    String turn;
+
+    public Input(int t, String turn) {
+        this.t = t;
+        this.turn = turn;
+    }
+}
+
 public class Main {
     public static boolean checkRange(int a1, int a2, int b) {
         if (a1 > a2) {
@@ -36,21 +46,33 @@ public class Main {
             // 가로
             if (edge.y1 == edge.y2) {
                 // 체크하려는 edge는 세로
-                if (checkEdge.x1 == checkEdge.x2 && checkRange(checkEdge.y1, checkEdge.y2, edge.y1)) {
+                if (checkEdge.x1 == checkEdge.x2 && checkRange(checkEdge.y1, checkEdge.y2, edge.y1)
+                        && checkRange(edge.x1, edge.x2, checkEdge.x1)) {
                     return false;
                     // edge가 똑같이 가로인 경우
-                } else if (edge.y1 == checkEdge.y1
-                        && (checkRange(edge.x1, edge.x2, checkEdge.x1) || checkRange(edge.x1, edge.x2, checkEdge.x2))) {
-                    return false;
+                } else if (edge.y1 == checkEdge.y1) {
+                    if (checkRange(edge.x1, edge.x2, checkEdge.x1) || checkRange(edge.x1, edge.x2, checkEdge.x2)) {
+                        return false;
+                    }
+                    if (checkRange(checkEdge.x1, checkEdge.x2, edge.x1)
+                            || checkRange(checkEdge.x1, checkEdge.x2, edge.x2)) {
+                        return false;
+                    }
                 }
             } else {
                 // edge가 가로인 경우
-                if (checkEdge.y1 == checkEdge.y2 && checkRange(checkEdge.x1, checkEdge.x2, edge.x1)) {
+                if (checkEdge.y1 == checkEdge.y2 && checkRange(checkEdge.x1, checkEdge.x2, edge.x1)
+                        && checkRange(edge.y1, edge.y2, checkEdge.y1)) {
                     return false;
                     // edge가 똑같이 세로인 경우
-                } else if (edge.x1 == checkEdge.x1
-                        && (checkRange(edge.y1, edge.y2, checkEdge.y1) || checkRange(edge.y1, edge.y2, checkEdge.y2))) {
-                    return false;
+                } else if (edge.x1 == checkEdge.x1) {
+                    if (checkRange(edge.y1, edge.y2, checkEdge.y1) || checkRange(edge.y1, edge.y2, checkEdge.y2)) {
+                        return false;
+                    }
+                    if (checkRange(checkEdge.y1, checkEdge.y2, edge.y1)
+                            || checkRange(checkEdge.y1, checkEdge.y2, edge.y2)) {
+                        return false;
+                    }
                 }
             }
         }
@@ -74,6 +96,8 @@ public class Main {
         sc.nextLine();
         int pos = 0;
         long survived = 1;
+
+        List<Input> inputList = new ArrayList<>();
         for (int i = 0; i < N; i++) {
             int t;
             String turn;
@@ -83,7 +107,18 @@ public class Main {
             String[] spt = line.split(" ");
             t = Integer.parseInt(spt[0]);
             turn = spt[1];
+
+            inputList.add(new Input(t, turn));
             // System.out.println(t + " " + turn);
+
+        }
+        inputList.add(new Input(2 * L + 1, "L"));
+
+        for (int i = 0; i <= N; i++) {
+            Input input = inputList.get(i);
+            int t = input.t;
+            String turn = input.turn;
+
             int nextX = curX + dx[pos] * (t - 1);
             int nextY = curY + dy[pos] * (t - 1);
 
@@ -98,7 +133,7 @@ public class Main {
                     int mid = (r - l) / 2 + l;
                     nextX = curX + dx[pos] * mid;
                     nextY = curY + dy[pos] * mid;
-                    if (nextX >= L || nextX <= -L || nextY >= L || nextY <= -L) {
+                    if ((nextX <= L && nextX >= -L) && (nextY <= L && nextY >= -L)) {
                         ans = mid;
                         l = mid + 1;
                     } else {
@@ -113,11 +148,11 @@ public class Main {
             if (!isValid(edgeList, edge)) {
                 int l = 0;
                 int r = t - 1;
-                int ans = l;
+                int ans = -1;
                 while (l <= r) {
                     int mid = (r - l) / 2 + l;
-                    nextX = dx[pos] * mid;
-                    nextY = dy[pos] * mid;
+                    nextX = curX + dx[pos] * mid;
+                    nextY = curY + dy[pos] * mid;
                     edge.x2 = nextX;
                     edge.y2 = nextY;
                     if (isValid(edgeList, edge)) {
@@ -147,6 +182,7 @@ public class Main {
                 break;
             }
         }
+
         System.out.println(survived);
     }
 }
