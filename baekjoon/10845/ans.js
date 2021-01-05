@@ -17,7 +17,6 @@ rl.on('line', function (line) {
     });
 class NodeQueue{
     constructor(value){
-        this.prev = null;
         this.next = null;
         this.value = value;
     }
@@ -53,6 +52,55 @@ class Queue{
     isEmpty(){
         return this.size == 0;
     }
+    front(){
+        if(this.size == 0){
+            return null;
+        }
+        return this.head.value;
+    }
+    back(){
+        if(this.size == 0){
+            return null;
+        }
+        return this.tail.value;
+    }
+    getSize(){
+        return this.size;
+    }
+}
+
+//Array로 구현 pop의 시간복잡도가 O(n)임
+class Queue2{
+    constructor(){
+        this.q = [];
+    }
+    enqueue(value){
+        this.q.push(value);
+    }
+    dequeue(){
+        if(this.q.length == 0){
+            return null;
+        }
+        return this.q.shift();
+    }
+    isEmpty(){
+        return this.q.length == 0;
+    }
+    front(){
+        if(this.q.length == 0){
+            return null;
+        }
+        return this.q[0];
+    }
+    back(){
+        if(this.q.length == 0){
+            return null;
+        }
+        return this.q[this.q.length - 1];
+    }
+    getSize(){
+        return this.q.length;
+    }
 }
 
 function solve(){
@@ -73,10 +121,10 @@ function solve(){
             if(q.isEmpty()){
                 output += -1 + "\n";
             }else{
-                output += q.head.value + "\n";
+                output += q.front() + "\n";
             }
         }else if(line.startsWith("size")){
-            output += q.size + "\n";
+            output += q.getSize() + "\n";
         }else if(line.startsWith("empty")){
             if(q.isEmpty())
                 output+= 1 + "\n";
@@ -87,7 +135,7 @@ function solve(){
             if(q.isEmpty()){
                 output+= -1 + "\n";
             }else{
-                output+= q.tail.value + "\n";
+                output+= q.back() + "\n";
             }
         }
     }
