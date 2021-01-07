@@ -29,8 +29,8 @@ function query(tree, baseSize, start, end){
             ret = Math.max(ret, tree[e]);
             e = e - 1;
         }
-        s = s/2;
-        e = e/2;
+        s = Math.floor(s/2);
+        e = Math.floor(e/2);
     }
     ret = Math.max(ret, tree[s]);
     return ret;
