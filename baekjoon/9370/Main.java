@@ -82,11 +82,13 @@ public class Main {
             Integer MAX_NUM = 2000000000;
             for (int i = 0; i <= n; i++) {
                 dijS.add(MAX_NUM);
+                dijH.add(MAX_NUM);
+                dijG.add(MAX_NUM);
             }
 
             dij(dijS, node, s);
-            dij(dijH, node, g);
-            dij(dijG, node, h);
+            dij(dijG, node, g);
+            dij(dijH, node, h);
             String ans = "";
             for (int i = 0; i < t; i++) {
                 int destNode = dest.get(i);
