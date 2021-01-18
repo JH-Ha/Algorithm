@@ -31,63 +31,29 @@ function solve() {
     }
     let k = parseInt(input.shift());
     let ans = 0;
+
     for (let i = 0; i < n; i++) {
-        let isOneRow = true;
+        let numZero = 0;
         for (let j = 0; j < m; j++) {
             if (map[i][j] == 0) {
-                isOneRow = false;
-                break;
+                numZero++;
             }
         }
-        if (isOneRow) {
-            ans++;
-        }
-    }
-    for (let i = 0; i < n; i++) {
-        let zeroIdx = [];
-        for (let j = 0; j < m; j++) {
-            if (map[i][j] == 0) {
-                zeroIdx.push(j);
-            }
-        }
-        if (zeroIdx.length > k) {
-            continue;
-        } else if (zeroIdx.length != 0 && (k % zeroIdx.length) % 2 == 1) {
-            continue;
-        }
-        let mapCopy = [];
-        for (let x = 0; x < n; x++) {
-            let row = [];
-            for (let y = 0; y < m; y++) {
-                let isZero = false;
-                for (let z = 0; z < zeroIdx.length; z++) {
-                    if (y == zeroIdx[z]) {
-                        isZero = true;
-                        break;
+        if (numZero <= k && ((k - numZero) % 2 == 0)) {
+            let numOneRow = 0;
+            for (let x = i; x < n; x++) {
+                let isSame = true;
+                for (let y = 0; y < m; y++) {
+                    if (map[x][y] != map[i][y]) {
+                        isSame = false;
                     }
                 }
-                if (isZero) {
-                    row.push(1 - map[x][y]);
-                } else {
-                    row.push(map[x][y]);
+                if (isSame) {
+                    numOneRow++;
                 }
             }
-            mapCopy.push(row);
+            ans = Math.max(numOneRow, ans);
         }
-        let numOneRow = 0;
-        for (let x = 0; x < n; x++) {
-            let isOneRow = true;
-            for (let y = 0; y < m; y++) {
-                if (mapCopy[x][y] == 0) {
-                    isOneRow = false;
-                    break;
-                }
-            }
-            if (isOneRow) {
-                numOneRow++;
-            }
-        }
-        ans = Math.max(numOneRow, ans);
     }
     console.log(ans);
 
