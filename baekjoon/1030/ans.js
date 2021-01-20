@@ -21,13 +21,13 @@ function find(x, y, n, k, width) {
     if (width == 1) {
         return 0;
     }
-    let smallWidth = Math.floor(width / n);
-    let start = Math.floor((n - k) / 2 * smallWidth);
+    let beforeWidth = Math.floor(width / n);
+    let start = Math.floor((n - k) / 2 * beforeWidth);
     if (x >= start && x < width - start &&
         y >= start && y < width - start) {
         return 1;
     }
-    return find(x % smallWidth, y % smallWidth, n, k, smallWidth);
+    return find(x % beforeWidth, y % beforeWidth, n, k, beforeWidth);
 }
 function solve() {
 
