@@ -13,27 +13,32 @@ char find(int x, int y, int n)
     {
         return map[x][y];
     }
+    //side blank
     if (y > x + (n - 1) || y < -x + n - 1)
     {
         return ' ';
     }
+    //left half blank inside triangle
     if (x >= n / 2 && y >= n / 2 && y < n && y >= x)
     {
         return ' ';
     }
+    //right half blank inside triangle
     if (x >= n / 2 && y >= n && y < (2 * n - 1) * 3 / 4 && y < -x + 2 * n - 1)
     {
         return ' ';
     }
+    //left bottom
     if (x >= n / 2 && y < n)
     {
         return find(x - n / 2, y, n / 2);
     }
+    //right bottom
     if (x >= n / 2 && y >= n)
     {
         return find(x - n / 2, y - n, n / 2);
     }
-
+    //top
     return find(x, y - n / 2, n / 2);
 }
 
