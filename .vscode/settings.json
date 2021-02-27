@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "xhash": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "hash_map": "cpp",
+        "string": "cpp",
+        "xtr1common": "cpp",
+        "iterator": "cpp",
+        "iosfwd": "cpp",
+        "utility": "cpp"
+    }
+}
