@@ -36,8 +36,10 @@ public class MinMaxDivision {
 	public static void main(String[] args) {
 		Solution solution = new Solution();
 		int K = 3;
-		int M = 5;
+		int M = 99;
 		int[] A = { 2, 1, 5, 1, 2, 2, 2 };
+		int[] A2 = { 0, 0, 99, 0, 0 };
 		System.out.println(solution.solution(K, M, A));
+		System.out.println(solution.solution(K, M, A2));
 	}
 }
