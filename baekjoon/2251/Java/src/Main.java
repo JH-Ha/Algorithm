@@ -36,7 +36,7 @@ public class Main {
 
         Queue<State> q = new LinkedList<>();
 
-        State init = new State(a, b, 0);
+        State init = new State(0, 0, c);
         q.add(init);
         visited.add(init.getKey());
         while (!q.isEmpty()) {
