@@ -24,7 +24,8 @@ class Main {
         if (arr[a] == a) {
             return a;
         }
-        return findParent(arr[a]);
+        arr[a] = findParent(arr[a]);
+        return arr[a];
     }
 
     public static boolean check(int a, int b) {
