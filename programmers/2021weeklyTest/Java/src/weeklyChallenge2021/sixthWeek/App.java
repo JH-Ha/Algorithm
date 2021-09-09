@@ -1,4 +1,4 @@
-package sixthWeek;
+package weeklyChallenge2021.sixthWeek;
 
 import java.util.ArrayList;
 import java.util.List;

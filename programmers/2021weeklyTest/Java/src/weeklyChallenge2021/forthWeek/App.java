@@ -1,4 +1,4 @@
-package forthWeek;
+package weeklyChallenge2021.forthWeek;
 
 import java.util.HashMap;
 import java.util.Map;

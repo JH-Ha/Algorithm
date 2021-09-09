@@ -1,4 +1,4 @@
-package thirdWeek;
+package weeklyChallenge2021.thirdWeek;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
