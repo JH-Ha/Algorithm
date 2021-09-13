@@ -3,9 +3,6 @@ package weeklyChallenge2021.seventhWeek;
 class Person {
     int enterOrder;
     int leaveOrder;
-
-    public Person() {
-    }
 }
 
 class Solution {
@@ -23,29 +20,32 @@ class Solution {
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                // 자기 자신의 경우는 제외
                 if (i == j)
                     continue;
+                // j가 i에 안쪽으로 포함되는 경우
                 if (people[j].enterOrder > people[i].enterOrder && people[j].leaveOrder < people[i].leaveOrder) {
                     answer[i]++;
+                    // j가 i에 바깥쪽으로 포함되는 경우
                 } else if (people[j].enterOrder < people[i].enterOrder && people[j].leaveOrder > people[i].leaveOrder) {
                     answer[i]++;
+                    // j의 입실 시간이 i에 포함되는 경우
                 } else if (people[j].enterOrder > people[i].enterOrder && people[j].leaveOrder > people[i].leaveOrder) {
                     for (int k = 0; k < n; k++) {
                         if (k != i && k != j) {
                             if (people[k].enterOrder > people[i].enterOrder
                                     && people[k].enterOrder > people[j].enterOrder
-                                    && people[k].leaveOrder < people[i].leaveOrder
-                                    && people[k].leaveOrder < people[j].leaveOrder) {
+                                    && people[k].leaveOrder < people[i].leaveOrder) {
                                 answer[i]++;
                                 break;
                             }
                         }
                     }
+                    // j의 퇴실 시간이 i에 포함되는 경우
                 } else if (people[j].enterOrder < people[i].enterOrder && people[j].leaveOrder < people[i].leaveOrder) {
                     for (int k = 0; k < n; k++) {
                         if (k != i && k != j) {
                             if (people[k].enterOrder > people[i].enterOrder
-                                    && people[k].enterOrder > people[j].enterOrder
                                     && people[k].leaveOrder < people[i].leaveOrder
                                     && people[k].leaveOrder < people[j].leaveOrder) {
                                 answer[i]++;
