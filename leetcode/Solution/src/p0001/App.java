@@ -1,3 +1,4 @@
+package p0001;
 // 1. Two Sum
 
 class Solution {
