@@ -19,7 +19,7 @@ class Node {
 
 class Solution {
     public int solution(int n, int[][] wires) {
-        int answer = -1;
+        int answer = n;
         Node[] nodeArr = new Node[n + 1];
         for (int i = 0; i <= n; i++) {
             nodeArr[i] = new Node(i);
@@ -28,18 +28,19 @@ class Solution {
             nodeArr[wires[i][0]].children.add(nodeArr[wires[i][1]]);
             nodeArr[wires[i][1]].children.add(nodeArr[wires[i][0]]);
         }
-        List<Integer> groupSize = new ArrayList<>();
 
         for (int i = 0; i < n - 1; i++) {
             nodeArr[wires[i][0]].children.remove(nodeArr[wires[i][1]]);
             nodeArr[wires[i][1]].children.remove(nodeArr[wires[i][0]]);
 
+            List<Integer> groupSize = new ArrayList<>();
             Set<Integer> visited = new HashSet<>();
 
             for (int j = 1; j <= n; j++) {
                 if (!visited.contains(j)) {
                     Queue<Node> q = new LinkedList<>();
                     q.add(nodeArr[j]);
+                    visited.add(j);
                     int size = 1;
                     while (!q.isEmpty()) {
                         Node front = q.poll();
@@ -55,12 +56,14 @@ class Solution {
                     groupSize.add(size);
                 }
             }
+            groupSize.stream().forEach(size -> {
+                System.out.println(size);
+            });
+            System.out.println();
+            answer = Math.min(Math.abs(groupSize.get(0) - groupSize.get(1)), answer);
             nodeArr[wires[i][0]].children.add(nodeArr[wires[i][1]]);
             nodeArr[wires[i][1]].children.add(nodeArr[wires[i][0]]);
         }
-        groupSize.stream().forEach(i -> {
-            System.out.println(i);
-        });
 
         return answer;
     }
