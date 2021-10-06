@@ -30,6 +30,7 @@ class Solution {
         }
 
         for (int i = 0; i < n - 1; i++) {
+            // i번째 wire를 제거한다.
             nodeArr[wires[i][0]].children.remove(nodeArr[wires[i][1]]);
             nodeArr[wires[i][1]].children.remove(nodeArr[wires[i][0]]);
 
@@ -56,11 +57,10 @@ class Solution {
                     groupSize.add(size);
                 }
             }
-            groupSize.stream().forEach(size -> {
-                System.out.println(size);
-            });
-            System.out.println();
+
             answer = Math.min(Math.abs(groupSize.get(0) - groupSize.get(1)), answer);
+
+            // 분리한 i번째 wire를 다시 연결한다.
             nodeArr[wires[i][0]].children.add(nodeArr[wires[i][1]]);
             nodeArr[wires[i][1]].children.add(nodeArr[wires[i][0]]);
         }
