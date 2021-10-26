@@ -1,4 +1,4 @@
-package weeklyChallenge2021.eightWeek;
+package weeklyChallenge2021.week08;
 
 class Solution {
     public int solution(int[][] sizes) {

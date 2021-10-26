@@ -1,4 +1,4 @@
-package weeklyChallenge2021.fifthWeek;
+package weeklyChallenge2021.week05;
 
 import java.util.HashMap;
 import java.util.LinkedList;

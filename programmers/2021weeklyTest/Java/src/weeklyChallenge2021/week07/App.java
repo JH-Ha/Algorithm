@@ -1,4 +1,4 @@
-package weeklyChallenge2021.seventhWeek;
+package weeklyChallenge2021.week07;
 
 class Person {
     int enterOrder;

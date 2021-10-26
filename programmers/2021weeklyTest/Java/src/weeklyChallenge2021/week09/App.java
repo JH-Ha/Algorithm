@@ -1,4 +1,4 @@
-package weeklyChallenge2021.ninthWeek;
+package weeklyChallenge2021.week09;
 
 import java.util.ArrayList;
 import java.util.HashSet;
