@@ -1,5 +1,6 @@
 package pc;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -7,53 +8,61 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         Integer t = Integer.parseInt(sc.nextLine());
-        while(t-- > 0){
-            List<Integer> input = Arrays.stream(sc.nextLine().split("")).map(str -> Integer.parseInt(str)).collect(Collectors.toList());
+        while (t-- > 0) {
+            List<Integer> input = Arrays.stream(sc.nextLine().split("")).map(str -> Integer.parseInt(str))
+                    .collect(Collectors.toList());
             int n = input.size();
-            int[] acc = new int[n + 1];
-            int sum = 0;
-            for(int i = 0; i < n; i ++ ){
-                int s = input.get(i);
-                acc[i + 1] = acc[i] + s;
-                sum += s;
-            }
-            int ans = n;
-            int l = 0;
-            int r = n - 1;
-            int removedOne = 0;
-            int leftZero = n - sum;
-            while (l <= r){
-                if(leftZero == removedOne){
-                    ans = Math.min(ans, Math.max(leftZero, removedOne));
-                    break;
-                }
-                if(input.get(l) == 0){
-                    leftZero --;
-                    l ++;
-                }else if(input.get(r) == 0){
-                    leftZero --;
-                    r --;
-                }else if(l < (n - 1) && input.get(l) == 1 && input.get(l + 1) == 0){
-                    removedOne ++;
-                    leftZero --;
-                    l += 2;
-                }else if (r > 0 && input.get(r) == 1 && input.get(r - 1 ) == 0){
-                    removedOne ++;
-                    leftZero --;
-                    r -= 2;
-                } else if (input.get(l) == 1){
-                    removedOne ++;
-                    l ++;
+            long numOnes = input.stream().reduce((x, y) -> x + y).get();
+            long numZeros = n - numOnes;
+            // save the number of removed zeros when remove i number of one from begin
+            List<Long> removedZerosFromFirst = new ArrayList<>();
+            // save the number of removed zeros when remove i number of one from end
+            List<Long> removedZerosFromLast = new ArrayList<>();
+            long cnt = 0;
+            for (int i = 0; i < n; i++) {
+                if (input.get(i) == 0) {
+                    cnt++;
                 } else {
-                    removedOne ++;
-                    r --;
+                    removedZerosFromFirst.add(cnt);
                 }
-                ans = Math.min(ans, Math.max(leftZero, removedOne));
+            }
+            removedZerosFromFirst.add(cnt);
+            cnt = 0;
+            for (int i = n - 1; i >= 0; i--) {
+                if (input.get(i) == 0) {
+                    cnt++;
+                } else {
+                    removedZerosFromLast.add(cnt);
+                }
+            }
+            removedZerosFromLast.add(cnt);
+            long l = 0;
+            long r = numOnes;
+            long ans = 0;
+            while (l <= r) {
+                long mid = (l + r) / 2;
+                boolean isPossible = false;
+                for (int i = 0; i <= mid; i++) {
+                    long leftZeros = numZeros;
+                    leftZeros -= removedZerosFromFirst.get(i);
+                    leftZeros -= removedZerosFromLast.get((int) mid - i);
+                    if (leftZeros <= mid) {
+                        isPossible = true;
+                        break;
+                    }
+                }
+                if (isPossible) {
+                    ans = mid;
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
             }
             System.out.println(ans);
         }
+        sc.close();
     }
 }
