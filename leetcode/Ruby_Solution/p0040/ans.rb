@@ -1,27 +1,35 @@
+def solve(candidates, target, cur_i, ans, cur)
+   if(target == 0)
+      ans.append(cur.clone)
+      return
+   end
+   for i in cur_i..candidates.length-1 do
+      if(cur_i != i && candidates[i] == candidates[i - 1])
+         next
+      end
+      if(candidates[i] > target)
+         break
+      end
+      cur.append(candidates[i])
+      solve(candidates, target - candidates[i], i + 1, ans, cur)
+      cur.pop()
+   end
+end
+
 # @param {Integer[]} candidates
 # @param {Integer} target
 # @return {Integer[][]}
+
+
 def combination_sum2(candidates, target)
+   candidates.sort!
    ans = []
-    if(candidates.length == 0)
-      return ans
-    end
-    candi = candidates.sort
-    first = candi.shift
-    new_target = target - first
-    if(new_target == 0)
-      ans.append(first)
-      return ans
-    elsif new_target > 0
-      sub_ans = combination_sum2(candi, new_target)
-      # for a in sub_ans do
-      #    ans.append(a.append(first))
-      # end
-      return sub_ans
-    else
-      return ans
-    end
+   solve(candidates, target, 0, ans, [])
+   return ans
 end
 
-candidates = [2,5,2,1,2], target = 5
-puts combination_sum2(candidates, target)
+candidates = [2,5,2,1,2]
+target = 5
+# candidates = [1,1]
+# target = 1
+puts "#{combination_sum2(candidates, target)}"
