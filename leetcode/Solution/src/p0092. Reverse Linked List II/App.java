@@ -19,34 +19,32 @@ public class ListNode {
 
 class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        int curIdx = 1;
+        if (head == null) {
+            return null;
+        }
+        if (left == right) {
+            return head;
+        }
 
         ListNode cur = head;
         ListNode ans = new ListNode();
-        ListNode ansCur = ans;
-        while (cur != null) {
-            if (curIdx == left) {
-                ListNode reverseCur = null;
-                ListNode lastNode = null;
-                while (curIdx <= right) {
-                    reverseCur = new ListNode(cur.val, reverseCur);
-                    if (curIdx == left) {
-                        lastNode = reverseCur;
-                    }
-                    curIdx++;
-                    cur = cur.next;
-                }
-                ansCur.next = reverseCur;
-                ansCur = lastNode;
-            } else {
-                ansCur.next = new ListNode(cur.val);
-                ansCur = ansCur.next;
-                curIdx++;
-                cur = cur.next;
-            }
+        ListNode prev = new ListNode();
+        prev.next = head;
+        for (int i = 0; i < left - 1; i++) {
+            prev = cur;
+            cur = cur.next;
         }
-
-        return ans.next;
+        for (int i = 0; i < right - left; i++) {
+            ListNode next = cur.next;
+            cur.next = next.next;
+            next.next = prev.next;
+            prev.next = next;
+        }
+        if (left == 1) {
+            return prev.next;
+        } else {
+            return head;
+        }
     }
 }
 
