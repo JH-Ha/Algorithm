@@ -5,7 +5,7 @@ class Solution {
         val sToTMap = mutableMapOf<Char, Char>()
         val tToSMap = mutableMapOf<Char, Char>()
 
-        for (i in 0 until s.length) {
+        for (i in s.indices) {
             val charS = s[i]
             val charT = t[i]
             
@@ -21,7 +21,6 @@ class Solution {
                 tToSMap[charT] = charS
             }
         }
-
         return true
     }
 }
