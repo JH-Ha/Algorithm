@@ -1,3 +1,5 @@
+package p100310;
+
 class Solution {
     public boolean isArraySpecial(int[] nums) {
         if (nums.length <= 1) {
