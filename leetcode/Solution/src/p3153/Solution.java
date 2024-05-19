@@ -1,4 +1,4 @@
-package p100300;
+package p3153;
 
 class Solution {
     public long sumDigitDifferences(int[] nums) {

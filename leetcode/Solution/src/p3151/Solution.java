@@ -1,4 +1,4 @@
-package p100310;
+package p3151;
 
 class Solution {
     public boolean isArraySpecial(int[] nums) {
